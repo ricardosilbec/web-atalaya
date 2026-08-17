@@ -1,6 +1,6 @@
 # Web Atalaya — Hoja de ruta de ejecución
 
-**Cliente:** Salón de Belleza Atalaya (Lima, Perú) · 2 locales
+**Cliente:** Salón de Belleza Atalaya (Perú) · 3 locales: Barranco (Lima), Tocache y Tarapoto (San Martín)
 **Agencia:** Crouton Lab · Ricardo Silbec
 **Contrato:** S/ 1,050 · inicio 20 de julio 2026 · 60 días de garantía post-entrega
 **Documento:** v1 · agosto 2026
@@ -38,6 +38,14 @@ Verificado por medición, no a ojo:
 - Enlaces `wa.me` correctos, en E.164 sin `+`, mensaje en primera persona y
   URL-encoded. **Escritos estáticamente en el HTML**, no inyectados por JS.
 
+**Siguiente paso de mayor valor: una página por ciudad.** Con las direcciones ya
+en mano, `/locales/barranco`, `/locales/tocache` y `/locales/tarapoto` son el
+activo SEO más rentable que queda (ver §12.2). **No se construyeron todavía a
+propósito:** hacerlas ahora, sin texto propio ni fotos de cada local, produciría
+exactamente las páginas calcadas que Google penaliza (§3.3). Necesitan del
+cliente un párrafo propio y fotos por ciudad. Hasta entonces, las tres fichas
+viven en `/locales` con su schema `HairSalon` individual.
+
 Deuda conocida, decidida a conciencia:
 - **La carta de servicios y las fichas de local se pintan con JS.** Sin
   JavaScript esas dos secciones salen vacías (el resto de la página, la
@@ -71,7 +79,14 @@ Si encuentras una contradicción entre este documento y lo que te parece mejor, 
 
 ### 1.1 Qué es Atalaya
 
-Salón de belleza en Lima con dos locales operando y un tercero previsto. Servicio estrella: **balayage**. Oferta amplia de manicure y pedicure con precios de entrada bajos (desde S/ 25).
+Salón de belleza con **tres locales en dos regiones**: Barranco (Lima), Tocache
+y Tarapoto (San Martín). Servicio estrella: **balayage**. Oferta amplia de
+manicure y pedicure con precios de entrada bajos (desde S/ 25).
+
+**Esto no es un salón de Lima.** Dos de los tres locales están en la selva
+sanmartinense, a más de 700 km de Lima y en mercados con competencia, precios y
+volumen de búsqueda completamente distintos. Cualquier copy o metadato que dé por
+sentada una sola ciudad está mal.
 
 ### 1.2 El problema real que resuelve la web
 
@@ -112,10 +127,10 @@ Estos datos no bloquean el código, pero **bloquean el lanzamiento**. Preséntal
 | **Lista completa de servicios de cabello** | ❌ Falta | Solo tenemos manicure/pedicure. Balayage es el servicio estrella y **no tiene precio ni descripción**. Falta corte, color, tratamientos, peinado, alisado, cejas/pestañas si aplica. |
 | **Precio de balayage** | ❌ Falta | Es la página que más va a atraer búsqueda. Referencia de mercado: S/ 300–550. |
 | **Números de WhatsApp** (uno por local, o uno central) | ❌ Falta | Es el mecanismo de conversión completo. Sin esto el sitio no cumple su función. |
-| **Direcciones exactas de ambos locales** | ❌ Falta | Sin dirección no hay mapa, ni "cómo llegar", ni SEO local. |
+| ~~Direcciones de los locales~~ | ✅ **Recibidas 17 ago** | Barranco: Av. El Sol Este 827 · Tocache: Av. Bolognesi 630 · Tarapoto: Jr. Chápaja 450 |
 | **Place ID de Google Maps de cada local** | ❌ Falta | Ver §10.3 para cómo obtenerlo. |
 | **Horarios de atención por local** | ❌ Falta | Va en schema y en la ficha de cada local. |
-| **Nombres reales de los locales** | ⚠️ Provisional | Por ahora "Local 1" y "Local 2". Idealmente el distrito (ej. "Atalaya Surquillo"). Ver §7.3 sobre URLs. |
+| ~~Nombres de los locales~~ | ✅ **Resuelto** | Barranco, Tocache y Tarapoto. Los slugs ya usan esos nombres. |
 
 ### 2.2 Importante — el sitio funciona sin esto pero pierde mucho
 
@@ -867,10 +882,18 @@ Página legal mínima y honesta: qué datos se recogen (prácticamente ninguno s
 
 | Página | Objetivo principal | Secundarios |
 |---|---|---|
-| `/` | salón de belleza [distrito] | peluquería [distrito], salón de belleza lima |
-| `/balayage` | **balayage lima** | balayage [distrito], precio balayage lima, mechas balayage |
-| `/servicios` | precios salón de belleza lima | manicure [distrito], uñas acrílicas [distrito] |
-| `/locales/[distrito]` | salón de belleza [distrito] | peluquería cerca de mí [distrito] |
+| `/` | atalaya salón (marca) | salón de belleza barranco / tocache / tarapoto |
+| `/balayage` | **balayage lima** | balayage barranco, precio balayage, mechas balayage |
+| `/servicios` | precios salón de belleza | manicure barranco, uñas acrílicas tarapoto |
+| `/locales/barranco` | salón de belleza barranco | peluquería barranco, balayage barranco |
+| `/locales/tocache` | **salón de belleza tocache** | peluquería tocache, uñas tocache |
+| `/locales/tarapoto` | **salón de belleza tarapoto** | peluquería tarapoto, balayage tarapoto |
+
+**Tocache y Tarapoto son la oportunidad real.** «Balayage lima» es un término
+caro y disputado; «salón de belleza tocache» casi no tiene competencia y la
+intención de compra es la misma. Un negocio con local físico en una ciudad
+pequeña gana esas búsquedas con poco esfuerzo — pero solo con **página propia por
+ciudad**, no con las tres apiladas en `/locales`.
 
 **Cada página de local ataca un conjunto de palabras distinto y sin solaparse, atado a su propia geografía.** Dos páginas de local peleando por el mismo término se canibalizan.
 

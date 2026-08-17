@@ -3,8 +3,11 @@
    Editar AQUÍ, nunca en el HTML.
 
    Estado a 17 ago 2026:
-   · WhatsApp confirmado: +51 955 063 705 (uno solo para ambos locales)
-   · Direcciones, horarios y Place IDs: PENDIENTES del cliente
+   · WhatsApp confirmado: +51 955 063 705 (uno solo para los tres locales)
+   · Direcciones confirmadas. Horarios y Place IDs: PENDIENTES del cliente
+   · Tres locales en DOS regiones: Lima (Barranco) y San Martín (Tocache y
+     Tarapoto). El negocio ya no es "un salón de Lima" — cuidado al escribir
+     copy o metadatos que den por sentada una sola ciudad.
    · Servicios de cabello más allá de balayage: PENDIENTES
    · Precio de balayage: PENDIENTE (referencia de mercado Lima S/ 300–550)
    · Fotos: PENDIENTES — todo se renderiza con marcadores de marca
@@ -15,7 +18,7 @@
 export const NEGOCIO = {
   nombre: 'Atalaya',
   nombreLargo: 'Atalaya Salón',
-  descripcion: 'Salón de belleza en Lima. Balayage, color y uñas en dos locales.',
+  descripcion: 'Balayage, color y uñas. Tres locales en Barranco, Tocache y Tarapoto.',
   moneda: 'PEN',
   simbolo: 'S/',
   whatsapp: '51955063705',           // E.164 sin '+'
@@ -25,15 +28,19 @@ export const NEGOCIO = {
   dominio: '',                       // PENDIENTE
 };
 
+/* Tres locales. `ciudad` y `region` son obligatorios: se usan para armar la
+   dirección de Google Maps y el schema de cada ficha. No asumir Lima. */
 export const LOCALES = [
   {
-    id: 'local-1',
-    slug: 'local-1',                 // renombrar al distrito real (ROADMAP §7.3)
-    nombre: 'Local 1',
-    distrito: '',                    // PENDIENTE
-    direccion: '',                   // PENDIENTE
-    referencia: '',
-    geo: { lat: null, lng: null },   // PENDIENTE
+    id: 'barranco',
+    slug: 'barranco',
+    nombre: 'Barranco',
+    direccion: 'Av. El Sol Este 827',
+    distrito: 'Barranco',
+    ciudad: 'Lima',
+    region: 'Lima',
+    referencia: '',                  // opcional
+    geo: { lat: null, lng: null },   // PENDIENTE — mejora la precisión del mapa
     placeId: '',                     // PENDIENTE (ROADMAP §10.3)
     whatsapp: '51955063705',
     horario: [],                     // PENDIENTE
@@ -41,11 +48,29 @@ export const LOCALES = [
     fotos: [],
   },
   {
-    id: 'local-2',
-    slug: 'local-2',
-    nombre: 'Local 2',
-    distrito: '',
-    direccion: '',
+    id: 'tocache',
+    slug: 'tocache',
+    nombre: 'Tocache',
+    direccion: 'Av. Bolognesi 630',
+    distrito: 'Tocache',
+    ciudad: 'Tocache',
+    region: 'San Martín',
+    referencia: '',
+    geo: { lat: null, lng: null },
+    placeId: '',
+    whatsapp: '51955063705',
+    horario: [],
+    texto: '',
+    fotos: [],
+  },
+  {
+    id: 'tarapoto',
+    slug: 'tarapoto',
+    nombre: 'Tarapoto',
+    direccion: 'Jr. Chápaja 450',
+    distrito: 'Tarapoto',
+    ciudad: 'Tarapoto',
+    region: 'San Martín',
     referencia: '',
     geo: { lat: null, lng: null },
     placeId: '',
@@ -55,6 +80,14 @@ export const LOCALES = [
     fotos: [],
   },
 ];
+
+/* Dirección completa para Google Maps y schema. */
+export function direccionCompleta(local) {
+  return [local.direccion, local.distrito, local.ciudad, local.region, 'Perú']
+    .filter(Boolean)
+    .filter((v, i, a) => a.indexOf(v) === i)   // Barranco/Barranco, Lima/Lima…
+    .join(', ');
+}
 
 export const SERVICIOS = [
   {

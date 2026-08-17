@@ -21,8 +21,6 @@
 }
 
 .hero .display { margin-bottom: var(--e5); }
-.hero .display .l2 { padding-left: 0.14em; }
-.hero .display .l3 { padding-left: 0.28em; }
 .hero-lead { max-width: 46ch; margin-bottom: var(--e6); }
 
 /* El símbolo como pieza gráfica del hero */
@@ -146,8 +144,9 @@
 .galeria .lente-rev { border-radius: 50% / 42%; overflow: hidden; }
 
 /* --- Locales ------------------------------------------------------------- */
-.locales { display: grid; gap: var(--e7); }
-@media (min-width: 900px) { .locales { grid-template-columns: repeat(2, 1fr); gap: var(--e6); } }
+.locales { display: grid; gap: var(--e6); }
+@media (min-width: 700px)  { .locales { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1040px) { .locales { grid-template-columns: repeat(3, 1fr); } }
 
 .local {
   border: 1px solid var(--borde-h);
@@ -175,7 +174,8 @@
   color: var(--gris-h);
 }
 .local-cuerpo { padding: var(--e6); display: flex; flex-direction: column; gap: var(--e3); flex: 1; }
-.local-cuerpo h3 { margin-bottom: var(--e1); }
+.local-cuerpo h3 { margin-bottom: 0; }
+.local-zona { margin: 0 0 var(--e3); font-size: 0.6875rem; }
 .local-datos { list-style: none; margin: 0 0 var(--e4); padding: 0; display: grid; gap: var(--e2); font-size: 0.9375rem; }
 .local-acciones { margin-top: auto; display: flex; flex-wrap: wrap; gap: var(--e2); }
 .local-acciones .btn { flex: 1 1 auto; min-height: 44px; font-size: 0.75rem; padding-inline: var(--e4); }

@@ -5,11 +5,11 @@
 <!-- PREVIEW: quitar esta línea al publicar en el dominio definitivo -->
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Atalaya Salón — Balayage, color y uñas en Lima</title>
-<meta name="description" content="Salón de belleza en Lima con dos locales. Balayage a mano alzada, color y uñas. Agenda tu cita por WhatsApp.">
+<title>Atalaya Salón — Balayage, color y uñas | Barranco, Tocache y Tarapoto</title>
+<meta name="description" content="Salón de belleza con tres locales: Barranco (Lima), Tocache y Tarapoto. Balayage a mano alzada, color y uñas. Agenda por WhatsApp.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Atalaya Salón — Balayage, color y uñas en Lima">
-<meta property="og:description" content="Salón de belleza en Lima con dos locales. Agenda tu cita por WhatsApp.">
+<meta property="og:title" content="Atalaya Salón — Balayage, color y uñas | Barranco, Tocache y Tarapoto">
+<meta property="og:description" content="Tres locales: Barranco, Tocache y Tarapoto. Agenda tu cita por WhatsApp.">
 <meta property="og:locale" content="es_PE">
 <link rel="icon" href="assets/marca/favicon.svg" type="image/svg+xml">
 <script>document.documentElement.className+=' js';</script>
@@ -19,12 +19,26 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "HairSalon",
+  "@type": "Organization",
   "name": "Atalaya Salón",
-  "description": "Salón de belleza en Lima. Balayage, color y uñas.",
-  "address": { "@type": "PostalAddress", "addressLocality": "Lima", "addressCountry": "PE" },
+  "description": "Balayage, color y uñas. Tres locales: Barranco, Tocache y Tarapoto.",
   "telephone": "+51955063705",
-  "areaServed": "Lima, Perú",
+  "areaServed": [
+    { "@type": "City", "name": "Barranco, Lima" },
+    { "@type": "City", "name": "Tocache, San Martín" },
+    { "@type": "City", "name": "Tarapoto, San Martín" }
+  ],
+  "location": [
+    { "@type": "HairSalon", "name": "Atalaya Salón — Barranco",
+      "address": { "@type": "PostalAddress", "streetAddress": "Av. El Sol Este 827",
+                   "addressLocality": "Barranco", "addressRegion": "Lima", "addressCountry": "PE" } },
+    { "@type": "HairSalon", "name": "Atalaya Salón — Tocache",
+      "address": { "@type": "PostalAddress", "streetAddress": "Av. Bolognesi 630",
+                   "addressLocality": "Tocache", "addressRegion": "San Martín", "addressCountry": "PE" } },
+    { "@type": "HairSalon", "name": "Atalaya Salón — Tarapoto",
+      "address": { "@type": "PostalAddress", "streetAddress": "Jr. Chápaja 450",
+                   "addressLocality": "Tarapoto", "addressRegion": "San Martín", "addressCountry": "PE" } }
+  ],
   "currenciesAccepted": "PEN"
 }
 </script>
@@ -77,15 +91,13 @@
     <div class="env">
       <div class="hero-rejilla">
         <div>
-          <p class="etiqueta sec">Salón de belleza · Lima</p>
+          <p class="etiqueta sec">Salón de belleza · Barranco · Tocache · Tarapoto</p>
           <h1 class="display">
-            <span class="l1">Precisión</span><br>
-            <span class="l2">que se ve</span><br>
-            <span class="l3">natural</span>
+            Precisión<br>que se ve<br>natural
           </h1>
           <p class="lead hero-lead ter">
-            Balayage, color y uñas en dos locales de Lima. Escribes por WhatsApp,
-            te confirmamos horario y listo.
+            Balayage, color y uñas en Barranco, Tocache y Tarapoto.
+            Escribes por WhatsApp, te confirmamos el horario y listo.
           </p>
           <div class="btn-grupo">
             <a class="btn btn-accion" data-wa href="https://wa.me/51955063705?text=Hola%2C%20quiero%20agendar%20una%20cita%20en%20Atalaya.%20%C2%BFQu%C3%A9%20horarios%20tienen%20disponibles%3F" target="_blank" rel="noopener">Agendar por WhatsApp</a>
@@ -177,7 +189,7 @@
     <div class="env">
       <header class="rev" style="margin-bottom:var(--e7)">
         <p class="etiqueta sec">Dónde estamos</p>
-        <h2>Dos locales en Lima</h2>
+        <h2>Barranco, Tocache y Tarapoto</h2>
       </header>
       <div class="locales" data-locales></div>
     </div>
@@ -205,7 +217,7 @@
       <div>
         <svg style="width:44px;margin-bottom:var(--e4)" viewBox="0 0 512 512" aria-hidden="true"><use href="#a-simbolo"/></svg>
         <p class="sec" style="font-size:0.9375rem;max-width:34ch">
-          Salón de belleza en Lima. Balayage, color y uñas en dos locales.
+          Balayage, color y uñas.<br>Barranco · Tocache · Tarapoto.
         </p>
       </div>
       <div>
@@ -222,8 +234,9 @@
         <h3>Contacto</h3>
         <ul>
           <li><a class="enlace" data-wa href="https://wa.me/51955063705?text=Hola%2C%20quiero%20agendar%20una%20cita%20en%20Atalaya.%20%C2%BFQu%C3%A9%20horarios%20tienen%20disponibles%3F" target="_blank" rel="noopener">WhatsApp +51 955 063 705</a></li>
-          <li class="sec">Local 1 · dirección por confirmar</li>
-          <li class="sec">Local 2 · dirección por confirmar</li>
+          <li class="sec">Barranco · Av. El Sol Este 827</li>
+          <li class="sec">Tocache · Av. Bolognesi 630</li>
+          <li class="sec">Tarapoto · Jr. Chápaja 450</li>
         </ul>
       </div>
     </div>

@@ -4,7 +4,7 @@
    Todo lo esencial del sitio funciona sin este archivo.
    ========================================================================== */
 
-import { NEGOCIO, LOCALES, SERVICIOS, precioTexto } from './datos.js';
+import { NEGOCIO, LOCALES, SERVICIOS, precioTexto, direccionCompleta } from './datos.js';
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
@@ -58,7 +58,7 @@ export function enlaceComoLlegar(local) {
   if (local.geo && local.geo.lat != null && local.geo.lng != null) {
     p.set('destination', `${local.geo.lat},${local.geo.lng}`);
   } else if (local.direccion) {
-    p.set('destination', `${local.direccion}, ${local.distrito}, Lima, Perú`);
+    p.set('destination', direccionCompleta(local));
   } else {
     return null;   // sin dirección no hay ruta: el botón no se renderiza
   }
@@ -135,7 +135,11 @@ function pintarLocales() {
     const wa = enlaceWA({ local });
     const ruta = enlaceComoLlegar(local);
     const horario = horarioTexto(local);
-    const titulo = local.distrito ? `${local.nombre} · ${local.distrito}` : local.nombre;
+    // El h3 ya dice el nombre; aquí solo va el contexto que no repite (la región,
+    // o la ciudad cuando el local es un distrito dentro de ella).
+    const zona = [local.ciudad, local.region]
+      .filter((v, i, a) => v && v !== local.nombre && a.indexOf(v) === i)
+      .join(', ');
 
     return `
       <article class="local rev">
@@ -144,7 +148,8 @@ function pintarLocales() {
           <span class="nota">${ruta ? 'Mapa' : 'Mapa — dirección por confirmar'}</span>
         </div>
         <div class="local-cuerpo">
-          <h3>${titulo}</h3>
+          <h3>${local.nombre}</h3>
+          <p class="local-zona etiqueta sec">${zona}</p>
           <ul class="local-datos">
             <li>${local.direccion
               ? local.direccion + (local.referencia ? `<br><span class="sec">${local.referencia}</span>` : '')
@@ -160,6 +165,35 @@ function pintarLocales() {
         </div>
       </article>`;
   }).join('');
+
+  inyectarSchemaLocales();
+}
+
+/* Un HairSalon por local, cada uno con SU dirección (ROADMAP §12.3).
+   Se genera desde los datos para no duplicar direcciones en el HTML; cuando
+   lleguen los horarios y Place IDs, entran solos. */
+function inyectarSchemaLocales() {
+  if (document.getElementById('ld-locales')) return;
+  const datos = LOCALES.map((l) => ({
+    '@context': 'https://schema.org',
+    '@type': 'HairSalon',
+    name: `${NEGOCIO.nombreLargo} — ${l.nombre}`,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: l.direccion,
+      addressLocality: l.ciudad,
+      addressRegion: l.region,
+      addressCountry: 'PE',
+    },
+    telephone: '+' + l.whatsapp,
+    currenciesAccepted: 'PEN',
+    priceRange: 'S/ 25 - S/ 100',
+  }));
+  const s = document.createElement('script');
+  s.type = 'application/ld+json';
+  s.id = 'ld-locales';
+  s.textContent = JSON.stringify(datos);
+  document.head.appendChild(s);
 }
 
 /* --- 4. Nav, menú y barra de reserva -------------------------------------- */

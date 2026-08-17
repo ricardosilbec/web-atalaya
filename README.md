@@ -17,6 +17,11 @@ npx serve .
 Todo el contenido variable vive en un único archivo: **`js/datos.js`**.
 Precios, servicios, locales, teléfonos y horarios se cambian ahí, no en el HTML.
 
+## Locales
+
+Tres: Barranco (Lima), Tocache y Tarapoto (San Martín). Se definen en
+`js/datos.js`; añadir uno es un objeto más en el array `LOCALES`.
+
 ## Antes de publicar en el dominio definitivo
 
 1. Borrar el `<div class="aviso">` de las 7 páginas (banda de "Vista previa").
