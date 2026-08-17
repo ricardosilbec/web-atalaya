@@ -10,8 +10,16 @@
 
 ## 0-bis. Estado de la construcción (17 ago 2026)
 
-**Fases 1 a 4 construidas y verificadas en local.** El sitio corre en
-`npx serve "Web Atalaya"` y está listo para desplegar en un dominio temporal.
+**Fases 1 a 4 construidas, verificadas y desplegadas.**
+
+- **Producción (Vercel):** https://web-atalaya.vercel.app — URLs limpias activas
+- **Espejo (GitHub Pages):** https://ricardosilbec.github.io/web-atalaya/
+- **Repo:** https://github.com/ricardosilbec/web-atalaya
+- Local: `npx serve "Web Atalaya"`
+
+Ambos despliegues llevan `noindex, nofollow` y `robots.txt` con `Disallow: /`
+mientras sea una revisión con contenido de relleno. Ver el README del repo para
+los 4 pasos de paso a dominio definitivo.
 
 Hecho:
 - Logo vectorizado a SVG desde los PNG del manual (`assets/marca/`), con
