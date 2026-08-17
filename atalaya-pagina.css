@@ -1,0 +1,247 @@
+/* ==========================================================================
+   ATALAYA — patrones de página
+   Se carga DESPUÉS de atalaya-system.css.
+   ========================================================================== */
+
+/* --- Hero ---------------------------------------------------------------- */
+.hero {
+  position: relative;
+  min-height: min(94vh, 860px);
+  display: flex;
+  align-items: flex-end;
+  padding-top: calc(var(--tope-h, var(--nav-h)) + var(--e8));
+  padding-bottom: var(--e9);
+  overflow: hidden;
+}
+.hero .env { position: relative; z-index: 2; width: 100%; }
+
+.hero-rejilla { display: grid; gap: var(--e7); align-items: end; }
+@media (min-width: 900px) {
+  .hero-rejilla { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--e8); }
+}
+
+.hero .display { margin-bottom: var(--e5); }
+.hero .display .l2 { padding-left: 0.14em; }
+.hero .display .l3 { padding-left: 0.28em; }
+.hero-lead { max-width: 46ch; margin-bottom: var(--e6); }
+
+/* El símbolo como pieza gráfica del hero */
+.hero-simbolo {
+  justify-self: center;
+  width: min(62vw, 340px);
+  color: var(--rosa);
+  opacity: 0.16;
+}
+@media (min-width: 900px) {
+  .hero-simbolo { justify-self: end; width: min(30vw, 400px); opacity: 0.2; }
+}
+
+/* Asomo de la sección siguiente */
+.hero-asomo {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
+  display: flex; justify-content: center;
+  padding-bottom: var(--e5);
+  pointer-events: none;
+}
+.hero-asomo span {
+  font-size: 0.6875rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gris-t);
+}
+
+/* --- Cabecera de página interior ----------------------------------------- */
+.cab {
+  position: relative;
+  padding-top: calc(var(--tope-h, var(--nav-h)) + var(--e9));
+  padding-bottom: var(--e8);
+  overflow: hidden;
+}
+.cab h1 { margin-bottom: var(--e5); }
+.cab .lead { max-width: 56ch; }
+
+/* --- Bloque editorial asimétrico ----------------------------------------- */
+.bloque { display: grid; gap: var(--e7); align-items: center; }
+@media (min-width: 900px) {
+  .bloque { grid-template-columns: repeat(12, 1fr); gap: var(--e8); }
+  .bloque .b-txt { grid-column: 1 / span 6; }
+  .bloque .b-img { grid-column: 8 / span 5; }
+  .bloque.inv .b-txt { grid-column: 7 / span 6; }
+  .bloque.inv .b-img { grid-column: 1 / span 5; grid-row: 1; }
+}
+.bloque h2 { margin-bottom: var(--e5); }
+.bloque .precio-grande {
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+  margin-bottom: var(--e6);
+}
+
+/* --- Carta de servicios (ROADMAP §11.3) ---------------------------------- */
+.cat + .cat { margin-top: var(--e9); }
+.cat-cab { margin-bottom: var(--e6); }
+.cat-cab h2 { margin-bottom: var(--e3); }
+
+.lista { list-style: none; margin: 0; padding: 0; }
+.fila {
+  padding-block: var(--e5);
+  border-top: 1px solid var(--borde-h);
+  display: grid;
+  gap: var(--e2) var(--e5);
+  grid-template-columns: 1fr auto;
+  align-items: start;
+}
+.s-tinta .fila { border-top-color: var(--borde-t); }
+.fila:last-child { border-bottom: 1px solid var(--borde-h); }
+.s-tinta .fila:last-child { border-bottom-color: var(--borde-t); }
+
+.fila-cab {
+  grid-column: 1 / -1;
+  display: flex; align-items: baseline; gap: var(--e3);
+  flex-wrap: nowrap;
+}
+.fila-nom { flex: none; max-width: 70%; }
+/* Conector de carta. Es decorativo, así que no le aplica el mínimo de
+   contraste de texto, pero tiene que verse: --borde-h da 1.5:1 y desaparece. */
+.fila-linea {
+  flex: 1 1 auto;
+  min-width: var(--e5);
+  border-bottom: 1px dotted #AEB3BC;
+  transform: translateY(-4px);
+}
+.s-tinta .fila-linea { border-bottom-color: #444A53; }
+.fila-precio { flex: none; font-size: 1rem; }
+
+.fila-desc { grid-column: 1; margin: 0; max-width: 62ch; font-size: 0.9375rem; }
+.fila-cta {
+  grid-column: 2; grid-row: 2;
+  min-height: 40px; padding-inline: var(--e5);
+  font-size: 0.75rem;
+  align-self: start;
+}
+@media (max-width: 599px) {
+  .fila { grid-template-columns: 1fr; }
+  .fila-cta { grid-column: 1; grid-row: auto; justify-self: start; margin-top: var(--e2); }
+  .fila-nom { max-width: 60%; }
+}
+
+.chip {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: var(--e2);
+  padding: 3px var(--e2);
+  border-radius: var(--r-full);
+  background: var(--rosa-osc);
+  color: var(--hueso);
+  font-size: 0.5625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.s-tinta .chip { background: var(--rosa); color: var(--tinta); }
+
+/* --- Galería de trabajos ------------------------------------------------- */
+.galeria {
+  display: grid; gap: var(--e4);
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 700px)  { .galeria { grid-template-columns: repeat(3, 1fr); gap: var(--e5); } }
+@media (min-width: 1100px) { .galeria { grid-template-columns: repeat(4, 1fr); } }
+.galeria .ph { aspect-ratio: 4 / 5; border-radius: var(--r-md); }
+.galeria .lente-rev { border-radius: 50% / 42%; overflow: hidden; }
+
+/* --- Locales ------------------------------------------------------------- */
+.locales { display: grid; gap: var(--e7); }
+@media (min-width: 900px) { .locales { grid-template-columns: repeat(2, 1fr); gap: var(--e6); } }
+
+.local {
+  border: 1px solid var(--borde-h);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.s-tinta .local { border-color: var(--borde-t); }
+
+.local-mapa {
+  aspect-ratio: 16 / 10;
+  position: relative;
+  background:
+    linear-gradient(rgba(19,22,26,0.04), rgba(19,22,26,0.04)),
+    repeating-linear-gradient(63.43deg, #E9ECF1 0 22px, #E4E6EA 22px 23px),
+    #E9ECF1;
+  display: grid; place-items: center;
+  border-bottom: 1px solid var(--borde-h);
+}
+.local-mapa .pin { width: 42px; color: var(--rosa-osc); opacity: 0.5; }
+.local-mapa .nota {
+  position: absolute; bottom: var(--e3); left: 0; right: 0;
+  text-align: center;
+  font-size: 0.625rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--gris-h);
+}
+.local-cuerpo { padding: var(--e6); display: flex; flex-direction: column; gap: var(--e3); flex: 1; }
+.local-cuerpo h3 { margin-bottom: var(--e1); }
+.local-datos { list-style: none; margin: 0 0 var(--e4); padding: 0; display: grid; gap: var(--e2); font-size: 0.9375rem; }
+.local-acciones { margin-top: auto; display: flex; flex-wrap: wrap; gap: var(--e2); }
+.local-acciones .btn { flex: 1 1 auto; min-height: 44px; font-size: 0.75rem; padding-inline: var(--e4); }
+
+/* --- Proceso numerado ---------------------------------------------------- */
+.pasos { list-style: none; margin: 0; padding: 0; counter-reset: p; display: grid; gap: var(--e6); }
+@media (min-width: 800px) { .pasos { grid-template-columns: repeat(2, 1fr); gap: var(--e7); } }
+.paso { counter-increment: p; display: grid; grid-template-columns: auto 1fr; gap: var(--e4); align-items: start; }
+.paso::before {
+  content: counter(p, decimal-leading-zero);
+  font-size: 0.75rem; letter-spacing: 0.14em;
+  color: var(--rosa);
+  padding-top: 0.35em;
+}
+.s-hueso .paso::before { color: var(--rosa-osc); }
+.paso h3 { margin-bottom: var(--e2); }
+.paso p { margin: 0; font-size: 0.9375rem; }
+
+/* --- FAQ (acordeón nativo) ----------------------------------------------- */
+.faq { max-width: 76ch; }
+.faq details { border-top: 1px solid var(--borde-t); }
+.s-hueso .faq details { border-top-color: var(--borde-h); }
+.faq details:last-of-type { border-bottom: 1px solid var(--borde-t); }
+.s-hueso .faq details:last-of-type { border-bottom-color: var(--borde-h); }
+.faq summary {
+  padding-block: var(--e5);
+  cursor: pointer;
+  list-style: none;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--e4);
+  font-size: clamp(1rem, 1.8vw, 1.1875rem);
+  min-height: 44px;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: ''; flex: none;
+  width: 10px; height: 10px;
+  border-right: 1px solid currentColor; border-bottom: 1px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform var(--t-medio) var(--ease);
+}
+.faq details[open] summary::after { transform: rotate(-135deg) translateY(-2px); }
+.faq details p { padding-bottom: var(--e5); margin: 0; font-size: 0.9375rem; }
+
+/* --- Banda de cierre ----------------------------------------------------- */
+.cierre { text-align: center; }
+.cierre h2 { margin-bottom: var(--e5); }
+.cierre p { margin-inline: auto; margin-bottom: var(--e6); }
+.cierre .btn-grupo { justify-content: center; }
+
+/* --- Aviso de dato pendiente (solo vista previa) -------------------------- */
+.pendiente {
+  display: inline-flex; align-items: center; gap: var(--e2);
+  padding: var(--e2) var(--e4);
+  border: 1px dashed var(--borde-h);
+  border-radius: var(--r-md);
+  font-size: 0.75rem; letter-spacing: 0.08em;
+  color: var(--gris-h);
+}
+.s-tinta .pendiente { border-color: var(--borde-t); color: var(--gris-t); }
+
+/* --- Aviso de vista previa ----------------------------------------------- */
+.aviso {
+  background: var(--rosa-osc); color: var(--hueso);
+  text-align: center;
+  padding: var(--e2) var(--canal);
+  font-size: 0.75rem; letter-spacing: 0.06em;
+  position: relative; z-index: 101;
+}
+.aviso strong { font-weight: 500; }

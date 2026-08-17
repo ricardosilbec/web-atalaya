@@ -1,0 +1,464 @@
+/* ==========================================================================
+   ATALAYA — sistema base
+   Tokens, tipografía, nav, botones, footer, movimiento.
+   Ver ROADMAP.md §5. La ley del espejo (§5.2) está implementada por superficie:
+   nunca uses un color de tinta fuera de su superficie.
+   ========================================================================== */
+
+/* --- Jost: variable, pesos 300–500, subconjunto latín (incluye acentos ES) -- */
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 300 500;
+  font-display: swap;
+  src: url('assets/fuentes/jost-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  /* Superficies e tintas */
+  --tinta:      #13161A;
+  --hueso:      #F3F5F8;
+  --rosa:       #D080B6;
+  --rosa-osc:   #7F366A;
+
+  /* Grises: cada uno pertenece a UNA superficie */
+  --gris-t:     #8B8F96;   /* 5.59:1 sobre tinta  */
+  --gris-alto-t:#C7CAD0;   /* 11.05:1 sobre tinta */
+  --gris-h:     #5C6068;   /* 5.78:1 sobre hueso  */
+  --borde-h:    #E4E6EA;
+  --borde-t:    #2A2E34;
+
+  /* Geometría del logo: vértice de pendiente 1:2 = 26.57° */
+  --vertice: 26.57deg;
+
+  /* Radios */
+  --r-sm: 2px;  --r-md: 4px;  --r-lg: 16px;  --r-full: 999px;
+
+  /* Ritmo */
+  --e1:4px;  --e2:8px;   --e3:12px;  --e4:16px;  --e5:24px;  --e6:32px;
+  --e7:48px; --e8:64px;  --e9:96px;  --e10:128px; --e11:192px;
+
+  /* Movimiento */
+  --t-rapido:160ms; --t-medio:320ms; --t-lento:640ms;
+  --ease:      cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-filo: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Contenedor */
+  --ancho-max: 1320px;
+  --canal: 24px;
+  --nav-h: 68px;
+}
+
+@media (min-width: 768px) { :root { --canal: 40px; } }
+
+/* --- Reset ---------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* clip, no hidden: hidden convierte al elemento en contenedor de scroll y
+     rompe position:sticky/fixed en algunos motores. */
+  overflow-x: clip;
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  font-family: 'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.6;
+  background: var(--tinta);
+  color: var(--hueso);
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg, video { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; }
+
+/* --- Superficies ---------------------------------------------------------- */
+.s-tinta   { background: var(--tinta);    color: var(--hueso); }
+.s-hueso   { background: var(--hueso);    color: var(--tinta); }
+.s-rosa    { background: var(--rosa);     color: var(--tinta); }  /* 6.43:1 */
+.s-rosaosc { background: var(--rosa-osc); color: var(--hueso); }  /* 7.29:1 */
+
+/* Texto secundario: resuelto por superficie, nunca a mano */
+.s-tinta   .sec { color: var(--gris-t); }
+.s-tinta   .ter { color: var(--gris-alto-t); }
+.s-hueso   .sec, .s-hueso .ter { color: var(--gris-h); }
+.s-rosa    .sec { color: #3A2233; }
+.s-rosaosc .sec { color: #E8D3E2; }
+
+/* Acento: rosa claro sobre tinta, rosa oscuro sobre hueso. Nunca al revés. */
+.s-tinta .acento   { color: var(--rosa); }
+.s-hueso .acento   { color: var(--rosa-osc); }
+.s-rosa .acento    { color: var(--tinta); }
+.s-rosaosc .acento { color: var(--hueso); }
+
+/* --- Contenedor y grilla -------------------------------------------------- */
+.env {
+  width: 100%;
+  max-width: var(--ancho-max);
+  margin-inline: auto;
+  padding-inline: var(--canal);
+}
+.seccion { padding-block: clamp(var(--e8), 11vw, var(--e11)); }
+
+.rejilla { display: grid; gap: var(--e6); grid-template-columns: repeat(12, 1fr); }
+@media (max-width: 767px) { .rejilla { grid-template-columns: 1fr; } }
+
+/* --- Tipografía (ROADMAP §5.3) -------------------------------------------- */
+.display, h1, h2 { font-weight: 300; margin: 0; }
+
+.display {
+  font-size: clamp(2.25rem, 6.4vw, 5.25rem);
+  line-height: 1.04;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+h1 {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+h2 {
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+h3 {
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0;
+  margin: 0;
+}
+p { margin: 0 0 1em; max-width: 68ch; }
+.lead { font-size: clamp(1.0625rem, 1.6vw, 1.25rem); line-height: 1.7; }
+
+.etiqueta {
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin: 0 0 var(--e4);
+}
+.num { font-variant-numeric: tabular-nums; }
+
+a { color: inherit; }
+
+/* Enlace con subrayado del vértice */
+.enlace {
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 2px;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size var(--t-medio) var(--ease);
+}
+.enlace:hover { background-size: 0% 1px; background-position: 100% 100%; }
+
+/* --- Botones (ROADMAP §5.6) ----------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--e2);
+  min-height: 48px;
+  padding: 0 var(--e6);
+  border: 1px solid transparent;
+  border-radius: var(--r-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform var(--t-rapido) var(--ease),
+              background-color var(--t-rapido) var(--ease),
+              color var(--t-rapido) var(--ease),
+              border-color var(--t-rapido) var(--ease);
+}
+.btn:hover  { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+/* Acción sobre TINTA: fondo rosa claro + texto tinta (6.43:1) */
+.btn-accion { background: var(--rosa); color: var(--tinta); }
+/* Acción sobre HUESO: fondo rosa oscuro + texto hueso (7.29:1) */
+.btn-accion-cl { background: var(--rosa-osc); color: var(--hueso); }
+/* Sobre fondo rosa oscuro, la acción va en tinta sólida */
+.s-rosaosc .btn-accion { background: var(--hueso); color: var(--tinta); }
+
+.btn-linea { background: transparent; border-color: currentColor; border-radius: var(--r-md); }
+.btn-linea:hover { background: currentColor; }
+.s-tinta   .btn-linea:hover { color: var(--tinta); }
+.s-hueso   .btn-linea:hover { color: var(--hueso); }
+.s-rosaosc .btn-linea:hover { color: var(--rosa-osc); }
+
+.btn-grupo { display: flex; flex-wrap: wrap; gap: var(--e3); align-items: center; }
+
+/* Foco visible siempre */
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--rosa);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+.s-hueso :where(a, button, [tabindex]):focus-visible { outline-color: var(--rosa-osc); }
+
+.saltar {
+  position: absolute; left: -9999px;
+  background: var(--rosa); color: var(--tinta);
+  padding: var(--e3) var(--e5); z-index: 200; border-radius: var(--r-md);
+}
+.saltar:focus { left: var(--e3); top: var(--e3); }
+
+/* --- Corte del vértice (ROADMAP §5.7) ------------------------------------- */
+.corte-sup {
+  --h-corte: clamp(28px, 5.5vw, 80px);
+  clip-path: polygon(0 var(--h-corte), 100% 0, 100% 100%, 0 100%);
+  margin-top: calc(-1 * var(--h-corte));
+  padding-top: calc(var(--h-corte) + clamp(var(--e8), 11vw, var(--e11)));
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Tope fijo: aviso + nav ------------------------------------------------
+   JS mide su altura real en --tope-h; el hero y las cabeceras la usan como
+   padding superior. Sin JS cae al valor de reserva --nav-h.               */
+.tope { position: fixed; inset: 0 0 auto 0; z-index: 100; }
+
+/* --- Nav ------------------------------------------------------------------ */
+.nav {
+  position: relative;
+  height: var(--nav-h);
+  display: flex; align-items: center;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color var(--t-medio) var(--ease),
+              border-color var(--t-medio) var(--ease);
+}
+.nav.solido { background: var(--tinta); border-bottom-color: var(--borde-t); }
+.nav .env { display: flex; align-items: center; gap: var(--e6); width: 100%; }
+
+.nav-marca { display: flex; align-items: center; gap: var(--e3); text-decoration: none; color: var(--hueso); }
+.nav-marca svg { width: 30px; height: 30px; flex: none; }
+.nav-marca .wm { width: 96px; height: auto; }
+
+.nav-enlaces { display: none; gap: var(--e6); margin-left: auto; }
+@media (min-width: 900px) { .nav-enlaces { display: flex; align-items: center; } }
+.nav-enlaces a {
+  color: var(--gris-alto-t);
+  text-decoration: none;
+  font-size: 0.8125rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color var(--t-rapido) var(--ease);
+}
+.nav-enlaces a:hover, .nav-enlaces a[aria-current="page"] { color: var(--hueso); }
+
+.nav-cta { margin-left: auto; }
+@media (min-width: 900px) { .nav-cta { margin-left: 0; } }
+@media (max-width: 899px) { .nav-cta .btn { display: none; } }
+
+/* Menú móvil */
+.menu-btn {
+  display: grid; place-items: center;
+  width: 44px; height: 44px;
+  background: none; border: 1px solid var(--borde-t); border-radius: var(--r-md);
+  cursor: pointer;
+}
+@media (min-width: 900px) { .menu-btn { display: none; } }
+.menu-btn span { display: block; width: 16px; height: 1px; background: var(--hueso); position: relative; }
+.menu-btn span::before, .menu-btn span::after {
+  content: ''; position: absolute; left: 0; width: 16px; height: 1px; background: var(--hueso);
+  transition: transform var(--t-medio) var(--ease);
+}
+.menu-btn span::before { top: -5px; }
+.menu-btn span::after  { top: 5px; }
+.menu-btn[aria-expanded="true"] span { background: transparent; }
+.menu-btn[aria-expanded="true"] span::before { transform: translateY(5px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] span::after  { transform: translateY(-5px) rotate(-45deg); }
+
+.menu {
+  position: fixed; inset: var(--tope-h, var(--nav-h)) 0 0 0; z-index: 99;
+  background: var(--tinta);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: var(--e6) var(--canal) calc(var(--e11));
+  gap: var(--e2);
+  transform: translateY(-100%);
+  visibility: hidden;
+  transition: transform var(--t-lento) var(--ease), visibility var(--t-lento);
+}
+.menu.abierto { transform: translateY(0); visibility: visible; }
+.menu a {
+  font-size: clamp(1.75rem, 8vw, 2.5rem);
+  font-weight: 300; letter-spacing: 0.08em; text-transform: uppercase;
+  text-decoration: none; color: var(--hueso);
+  padding: var(--e2) 0;
+}
+.menu a[aria-current="page"] { color: var(--rosa); }
+@media (min-width: 900px) { .menu { display: none; } }
+
+/* --- Barra de reserva móvil (ROADMAP §6.5) -------------------------------- */
+.barra {
+  position: fixed; inset: auto 0 0 0; z-index: 98;
+  display: flex; gap: var(--e2);
+  padding: var(--e3) var(--canal) calc(var(--e3) + env(safe-area-inset-bottom));
+  background: var(--tinta);
+  border-top: 1px solid var(--borde-t);
+  transform: translateY(110%);
+  transition: transform var(--t-medio) var(--ease);
+}
+.barra.visible { transform: translateY(0); }
+.barra .btn { flex: 1; padding-inline: var(--e4); }
+@media (min-width: 900px) { .barra { display: none; } }
+
+/* Disco flotante de WhatsApp (escritorio) */
+.disco-wa {
+  position: fixed; right: var(--e6); bottom: var(--e6); z-index: 98;
+  width: 56px; height: 56px;
+  display: none; place-items: center;
+  background: var(--rosa); color: var(--tinta);
+  border-radius: 50%;
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.25);
+  transition: transform var(--t-rapido) var(--ease);
+}
+.disco-wa:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 rgba(0,0,0,0.25); }
+@media (min-width: 900px) { .disco-wa { display: grid; } }
+
+/* --- Índice-atalaya (ROADMAP §6.4) ---------------------------------------- */
+.indice {
+  position: fixed; right: var(--e5); top: 50%; z-index: 90;
+  transform: translateY(-50%);
+  display: none; flex-direction: column; gap: var(--e3);
+  list-style: none; margin: 0; padding: 0;
+}
+/* 1460px: por debajo, el índice se solapa con la columna de precios de la
+   carta (el contenedor llega a 1320px + canal). */
+@media (min-width: 1460px) { .indice { display: flex; } }
+.indice a {
+  display: flex; align-items: center; gap: var(--e3);
+  text-decoration: none; justify-content: flex-end;
+}
+.indice .marca-i {
+  display: block; width: 18px; height: 1px;
+  background: var(--gris-t);
+  transition: width var(--t-medio) var(--ease), background-color var(--t-medio) var(--ease);
+}
+.indice .txt {
+  font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--gris-t);
+  opacity: 0; transform: translateX(6px);
+  transition: opacity var(--t-medio) var(--ease), transform var(--t-medio) var(--ease);
+}
+.indice a:hover .txt, .indice a.act .txt { opacity: 1; transform: none; }
+.indice a.act .marca-i { width: 34px; background: var(--rosa); }
+.indice a.act .txt { color: var(--rosa); }
+/* Sobre secciones claras el índice invierte su tinta */
+.indice.sobre-hueso .marca-i { background: var(--gris-h); }
+.indice.sobre-hueso .txt { color: var(--gris-h); }
+.indice.sobre-hueso a.act .marca-i { background: var(--rosa-osc); }
+.indice.sobre-hueso a.act .txt { color: var(--rosa-osc); }
+
+/* --- La lente (ROADMAP §6.3) ---------------------------------------------- */
+.lente {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 50% / 42%;
+  background: var(--borde-t);
+}
+.lente > img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Marcador de posición de foto: bloque de marca, nunca stock (ROADMAP §15.2) */
+.ph {
+  display: grid; place-items: center;
+  /* Superficie propia, no la del fondo: si iguala a --tinta la forma
+     desaparece y el hueco se lee como error en vez de como marcador. */
+  background:
+    radial-gradient(120% 90% at 50% 20%, rgba(208,128,182,0.16), transparent 70%),
+    #1C2026;
+  border: 1px solid var(--borde-t);
+  color: var(--gris-t);
+  position: relative;
+  overflow: hidden;
+}
+.ph svg { width: 34%; opacity: 0.2; }
+.ph::after {
+  content: attr(data-ph);
+  position: absolute; bottom: var(--e3); left: 0; right: 0;
+  text-align: center;
+  font-size: 0.625rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--gris-t);
+}
+.s-hueso .ph {
+  background:
+    radial-gradient(120% 90% at 50% 20%, rgba(127,54,106,0.08), transparent 70%),
+    #E9ECF1;
+  border-color: var(--borde-h);
+  color: var(--gris-h);
+}
+.s-hueso .ph svg { opacity: 0.12; }
+.s-hueso .ph::after { color: var(--gris-h); }
+
+/* --- Grano y halo (textura sin imágenes, ROADMAP §15.3) ------------------- */
+.grano::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  opacity: 0.035; mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.halo::after {
+  content: ''; position: absolute; z-index: -1;
+  inset: -20% -10% auto auto;
+  width: min(70vw, 720px); aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(208,128,182,0.18), transparent 62%);
+  pointer-events: none;
+}
+
+/* --- Footer -------------------------------------------------------------- */
+.pie { background: var(--tinta); color: var(--hueso); padding-block: var(--e9) var(--e7); }
+.pie a { text-decoration: none; }
+.pie-rejilla { display: grid; gap: var(--e7); grid-template-columns: 1fr; }
+@media (min-width: 700px) { .pie-rejilla { grid-template-columns: 1.4fr 1fr 1fr; } }
+.pie h3 { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gris-t); margin-bottom: var(--e4); }
+.pie ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--e2); }
+.pie-legal {
+  margin-top: var(--e8); padding-top: var(--e5);
+  border-top: 1px solid var(--borde-t);
+  display: flex; flex-wrap: wrap; gap: var(--e4); justify-content: space-between;
+  font-size: 0.8125rem; color: var(--gris-t);
+}
+
+/* --- Movimiento (ROADMAP §6) ---------------------------------------------
+   Estado final por defecto. La animación solo se activa cuando JS confirma
+   soporte y el usuario no pidió movimiento reducido. Sin JS: todo visible.  */
+.js .rev {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity var(--t-lento) var(--ease), transform var(--t-lento) var(--ease);
+}
+.js .rev.visto { opacity: 1; transform: none; }
+.js .rev-d1 { transition-delay: 80ms; }
+.js .rev-d2 { transition-delay: 160ms; }
+.js .rev-d3 { transition-delay: 240ms; }
+
+/* La lente se abre al entrar */
+.js .lente-rev { clip-path: inset(0 0 0 0 round 50% / 42%); }
+.js .lente-rev .cont { transform: scale(1.12); transition: transform 900ms var(--ease); }
+.js .lente-rev.visto .cont { transform: scale(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .js .rev { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .js .lente-rev .cont { transform: none !important; transition: none !important; }
+  .btn:hover { transform: none; }
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+}

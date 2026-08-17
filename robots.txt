@@ -1,0 +1,4 @@
+# Despliegue temporal de revisión. Al pasar al dominio definitivo,
+# sustituir por Allow y quitar el noindex de las páginas.
+User-agent: *
+Disallow: /
