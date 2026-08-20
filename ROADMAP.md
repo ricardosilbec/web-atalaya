@@ -124,9 +124,10 @@ Estos datos no bloquean el código, pero **bloquean el lanzamiento**. Preséntal
 
 | Dato | Estado | Impacto si falta |
 |---|---|---|
+| **Número de WhatsApp de Tarapoto** | ❌ Falta | Ahora usa el de Barranco en temporal. Un cliente de Tarapoto escribe a Lima. |
 | **Lista completa de servicios de cabello** | ❌ Falta | Solo tenemos manicure/pedicure. Balayage es el servicio estrella y **no tiene precio ni descripción**. Falta corte, color, tratamientos, peinado, alisado, cejas/pestañas si aplica. |
 | **Precio de balayage** | ❌ Falta | Es la página que más va a atraer búsqueda. Referencia de mercado: S/ 300–550. |
-| **Números de WhatsApp** (uno por local, o uno central) | ❌ Falta | Es el mecanismo de conversión completo. Sin esto el sitio no cumple su función. |
+| ~~Números de WhatsApp~~ | ✅ **Parcial (17 ago)** | Barranco 910 867 018 · Tocache 955 063 705 · Tarapoto pendiente. |
 | ~~Direcciones de los locales~~ | ✅ **Recibidas 17 ago** | Barranco: Av. El Sol Este 827 · Tocache: Av. Bolognesi 630 · Tarapoto: Jr. Chápaja 450 |
 | **Place ID de Google Maps de cada local** | ❌ Falta | Ver §10.3 para cómo obtenerlo. |
 | **Horarios de atención por local** | ❌ Falta | Va en schema y en la ficha de cada local. |

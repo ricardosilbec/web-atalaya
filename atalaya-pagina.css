@@ -167,6 +167,15 @@
   border-bottom: 1px solid var(--borde-h);
 }
 .local-mapa .pin { width: 42px; color: var(--rosa-osc); opacity: 0.5; }
+.local-iframe {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border: 0;
+  /* El mapa de Google llega en claro; sobre superficie Hueso encaja sin
+     retoques. No filtrar: alterar un mapa dificulta reconocer la zona. */
+}
+.local-mapa .pin { position: absolute; }   /* queda detrás mientras carga */
+
 .local-mapa .nota {
   position: absolute; bottom: var(--e3); left: 0; right: 0;
   text-align: center;

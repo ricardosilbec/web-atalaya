@@ -3,7 +3,10 @@
    Editar AQUÍ, nunca en el HTML.
 
    Estado a 17 ago 2026:
-   · WhatsApp confirmado: +51 955 063 705 (uno solo para los tres locales)
+   · WhatsApp POR LOCAL (confirmado 17 ago):
+       Barranco → 910 867 018   ·   Tocache → 955 063 705
+       Tarapoto → usa el de Barranco EN TEMPORAL hasta que el cliente dé el suyo.
+     Los CTA genéricos (hero, nav, pie) apuntan a Barranco por defecto.
    · Direcciones confirmadas. Horarios y Place IDs: PENDIENTES del cliente
    · Tres locales en DOS regiones: Lima (Barranco) y San Martín (Tocache y
      Tarapoto). El negocio ya no es "un salón de Lima" — cuidado al escribir
@@ -21,8 +24,8 @@ export const NEGOCIO = {
   descripcion: 'Balayage, color y uñas. Tres locales en Barranco, Tocache y Tarapoto.',
   moneda: 'PEN',
   simbolo: 'S/',
-  whatsapp: '51955063705',           // E.164 sin '+'
-  telefonoVisible: '+51 955 063 705',
+  // Número por defecto de los CTA que no nombran un local. Es el de Barranco.
+  whatsapp: '51910867018',           // E.164 sin '+'
   instagram: '',                     // PENDIENTE
   tiktok: '',                        // PENDIENTE
   dominio: '',                       // PENDIENTE
@@ -35,14 +38,14 @@ export const LOCALES = [
     id: 'barranco',
     slug: 'barranco',
     nombre: 'Barranco',
-    direccion: 'Av. El Sol Este 827',
+    direccion: 'Av. El Sol Este 825',
     distrito: 'Barranco',
     ciudad: 'Lima',
     region: 'Lima',
     referencia: '',                  // opcional
     geo: { lat: null, lng: null },   // PENDIENTE — mejora la precisión del mapa
     placeId: '',                     // PENDIENTE (ROADMAP §10.3)
-    whatsapp: '51955063705',
+    whatsapp: '51910867018',         // número de Lima
     horario: [],                     // PENDIENTE
     texto: '',                       // PENDIENTE — párrafo propio, no plantilla
     fotos: [],
@@ -51,7 +54,7 @@ export const LOCALES = [
     id: 'tocache',
     slug: 'tocache',
     nombre: 'Tocache',
-    direccion: 'Av. Bolognesi 630',
+    direccion: 'Jr. Bolognesi 685',
     distrito: 'Tocache',
     ciudad: 'Tocache',
     region: 'San Martín',
@@ -67,19 +70,37 @@ export const LOCALES = [
     id: 'tarapoto',
     slug: 'tarapoto',
     nombre: 'Tarapoto',
-    direccion: 'Jr. Chápaja 450',
+    direccion: 'Jr. Shapaja 450',
     distrito: 'Tarapoto',
     ciudad: 'Tarapoto',
     region: 'San Martín',
     referencia: '',
     geo: { lat: null, lng: null },
     placeId: '',
-    whatsapp: '51955063705',
+    whatsapp: '51910867018',         // TEMPORAL: es el de Barranco.
+                                     // PENDIENTE: número propio de Tarapoto.
     horario: [],
     texto: '',
     fotos: [],
   },
 ];
+
+/* +51 955 063 705 a partir del E.164 guardado. Un solo sitio donde formatear. */
+export function telefonoVisible(local) {
+  const n = (local && local.whatsapp) || NEGOCIO.whatsapp;
+  const m = n.replace(/^51/, '');
+  return '+51 ' + m.replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3');
+}
+
+/* URL del mapa incrustado. Sin clave de API: el endpoint clásico de Maps
+   acepta una consulta de texto y devuelve el mapa listo para <iframe>. */
+export function mapaEmbed(local) {
+  if (!local.direccion) return null;
+  const q = local.geo && local.geo.lat != null
+    ? `${local.geo.lat},${local.geo.lng}`
+    : direccionCompleta(local);
+  return `https://maps.google.com/maps?q=${encodeURIComponent(q)}&z=16&hl=es&output=embed`;
+}
 
 /* Dirección completa para Google Maps y schema. */
 export function direccionCompleta(local) {

@@ -4,7 +4,8 @@
    Todo lo esencial del sitio funciona sin este archivo.
    ========================================================================== */
 
-import { NEGOCIO, LOCALES, SERVICIOS, precioTexto, direccionCompleta } from './datos.js';
+import { NEGOCIO, LOCALES, SERVICIOS, precioTexto, direccionCompleta,
+         telefonoVisible, mapaEmbed } from './datos.js';
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
@@ -135,6 +136,7 @@ function pintarLocales() {
     const wa = enlaceWA({ local });
     const ruta = enlaceComoLlegar(local);
     const horario = horarioTexto(local);
+    const mapa = mapaEmbed(local);
     // El h3 ya dice el nombre; aquí solo va el contexto que no repite (la región,
     // o la ciudad cuando el local es un distrito dentro de ella).
     const zona = [local.ciudad, local.region]
@@ -145,7 +147,12 @@ function pintarLocales() {
       <article class="local rev">
         <div class="local-mapa">
           <svg class="pin" viewBox="0 0 512 512" aria-hidden="true"><use href="#a-simbolo"/></svg>
-          <span class="nota">${ruta ? 'Mapa' : 'Mapa — dirección por confirmar'}</span>
+          ${mapa
+            ? `<iframe class="local-iframe" src="${mapa}" loading="lazy"
+                 title="Mapa de ${NEGOCIO.nombreLargo} en ${local.nombre}"
+                 referrerpolicy="no-referrer-when-downgrade"
+                 allowfullscreen></iframe>`
+            : `<span class="nota">Mapa — dirección por confirmar</span>`}
         </div>
         <div class="local-cuerpo">
           <h3>${local.nombre}</h3>
@@ -155,7 +162,7 @@ function pintarLocales() {
               ? local.direccion + (local.referencia ? `<br><span class="sec">${local.referencia}</span>` : '')
               : '<span class="pendiente">Dirección por confirmar</span>'}</li>
             <li>${horario || '<span class="pendiente">Horario por confirmar</span>'}</li>
-            <li>${NEGOCIO.telefonoVisible}</li>
+            <li><a class="enlace" href="tel:+${local.whatsapp}">${telefonoVisible(local)}</a></li>
           </ul>
           <div class="local-acciones">
             ${wa ? `<a class="btn btn-accion-cl" href="${wa}" target="_blank" rel="noopener">Agendar aquí</a>` : ''}
