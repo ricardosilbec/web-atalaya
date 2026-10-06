@@ -124,10 +124,11 @@ Estos datos no bloquean el código, pero **bloquean el lanzamiento**. Preséntal
 
 | Dato | Estado | Impacto si falta |
 |---|---|---|
-| **Número de WhatsApp de Tarapoto** | ❌ Falta | Ahora usa el de Barranco en temporal. Un cliente de Tarapoto escribe a Lima. |
-| **Lista completa de servicios de cabello** | ❌ Falta | Solo tenemos manicure/pedicure. Balayage es el servicio estrella y **no tiene precio ni descripción**. Falta corte, color, tratamientos, peinado, alisado, cejas/pestañas si aplica. |
-| **Precio de balayage** | ❌ Falta | Es la página que más va a atraer búsqueda. Referencia de mercado: S/ 300–550. |
-| ~~Números de WhatsApp~~ | ✅ **Parcial (17 ago)** | Barranco 910 867 018 · Tocache 955 063 705 · Tarapoto pendiente. |
+| **Número de WhatsApp de Tarapoto** | ❌ Falta | Usa el de Barranco en temporal. Un cliente de Tarapoto escribe a Lima. |
+| **Aprobación de las descripciones** | ❌ Falta | Las 40 descripciones las redactó Crouton Lab (`borrador: true` en `datos.js`). Describen la técnica, no el protocolo propio del salón. |
+| ~~Carta completa~~ | ✅ **Recibida 6 oct** | 40 servicios en 4 categorías: Tratamientos (18), Manicure y pedicure (13), Depilaciones (8), Maquillaje (1). |
+| ~~Precio de balayage~~ | ✅ **S/ 400** | Dentro del rango de mercado de Lima (S/ 300–550). |
+| ~~Números de WhatsApp~~ | ✅ **Parcial** | Barranco 981 591 998 (actualizado 6 oct) · Tocache 955 063 705 · Tarapoto pendiente. |
 | ~~Direcciones de los locales~~ | ✅ **Recibidas 17 ago** | Barranco: Av. El Sol Este 827 · Tocache: Av. Bolognesi 630 · Tarapoto: Jr. Chápaja 450 |
 | **Place ID de Google Maps de cada local** | ❌ Falta | Ver §10.3 para cómo obtenerlo. |
 | **Horarios de atención por local** | ❌ Falta | Va en schema y en la ficha de cada local. |
@@ -1026,6 +1027,21 @@ Guía para pedirlas bien:
 - Locales: fachada (para reconocerlo al llegar), interior general, detalle de estación de trabajo.
 - Equipo: retrato vertical, fondo uniforme, misma iluminación entre todos.
 - Formato: lo más grande posible, sin filtros de Instagram, sin marcas de agua.
+
+### 15.2-bis Las imágenes de balayage que SÍ se generaron (6 oct 2026)
+
+Se generaron **tres** imágenes con Higgsfield (modelo `soul_2`, 0,12 créditos
+cada una, ~0,4 créditos en total) a pedido explícito de Ricardo: clienta de
+espaldas dentro del salón, fondo desenfocado. Están en `assets/fotos/`,
+recortadas a 4:5, 1000×1250, WebP de 105–140 KB.
+
+**Cómo están rotuladas, y por qué importa:** no aparecen en ningún sitio como
+«trabajos realizados en Atalaya». La sección de la página de balayage se llama
+«Así se ve» y lleva la nota de que son imágenes de referencia de la técnica. La
+distinción no es cosmética: ilustrar en qué consiste un balayage es legítimo;
+presentar un resultado generado como obra del salón es publicidad engañosa, y la
+persona llega a la cita esperando eso (§15.2). Cuando lleguen las fotos reales,
+se sustituyen y se borra la nota.
 
 ### 15.3 Higgsfield — estado y plan
 

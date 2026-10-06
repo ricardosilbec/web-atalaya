@@ -133,15 +133,25 @@
 }
 .s-tinta .chip { background: var(--rosa); color: var(--tinta); }
 
-/* --- Galería de trabajos ------------------------------------------------- */
+/* --- Galería ------------------------------------------------------------- */
+/* auto-fit para que funcione igual con 3 o con 4 piezas */
 .galeria {
   display: grid; gap: var(--e4);
   grid-template-columns: repeat(2, 1fr);
 }
-@media (min-width: 700px)  { .galeria { grid-template-columns: repeat(3, 1fr); gap: var(--e5); } }
-@media (min-width: 1100px) { .galeria { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 700px) {
+  .galeria { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--e5); }
+}
 .galeria .ph { aspect-ratio: 4 / 5; border-radius: var(--r-md); }
-.galeria .lente-rev { border-radius: 50% / 42%; overflow: hidden; }
+.galeria .lente-rev { aspect-ratio: 4 / 5; border-radius: 50% / 42%; overflow: hidden; }
+
+/* Fotos dentro de la lente */
+.lente > img.cont,
+.lente-rev > img.cont {
+  display: block;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
 
 /* --- Locales ------------------------------------------------------------- */
 .locales { display: grid; gap: var(--e6); }
